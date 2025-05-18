@@ -19,8 +19,8 @@ async function fetchPokemonData(idOrName: string) {
         const types = data.types.map((typeInfo: any) => capitalize(typeInfo.type.name)).join(', ');
 
         console.log(`${name} – ${height} m – ${weight} kg – ${types}`);
-    } catch (error) {
-        console.error('⚠️ Erro de rede. Tente novamente. Detalhes:', error);
+    } catch {
+        console.error('⚠️ Erro de rede. Tente novamente.');
     }
 }
 

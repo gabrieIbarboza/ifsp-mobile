@@ -20,4 +20,4 @@ export const groupBy = <T, K extends keyof T>(arr: T[], key: K): Record<string, 
  * @example sumBy([{ value: 10 }, { value: 5 }], 'value') → 15
  */
 export const sumBy = <T>(arr: T[], key: keyof T): number =>
-  arr.reduce((total, obj) => total + (obj[key] as unknown as number ?? 0), 0);
+  arr.reduce((total, obj) => total + (Number(obj[key]) || 0), 0);
