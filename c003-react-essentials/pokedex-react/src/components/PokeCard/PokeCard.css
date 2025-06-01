@@ -1,0 +1,41 @@
+
+.pokedex-card {
+    margin-top: 20px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    text-align: left;
+    border: 1px solid #ddd;
+    margin: 8px 0;
+    transition: background-color 0.2s;
+}
+
+.pokedex-card.favorito {
+    background-color: #fff9c4;
+}
+
+.pokedex-name {
+    text-transform: capitalize;
+    margin-bottom: 10px;
+}
+
+.pokedex-image {
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.favorito-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 12px;
+    transition: background-color 0.2s;
+}
+
+.favorito-btn.removido {
+    background-color: #f44336;
+}
+}
