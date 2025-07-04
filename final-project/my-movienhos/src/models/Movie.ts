@@ -9,4 +9,5 @@ export interface Movie {
     description?: string;
     contentRating?: string;
     reviewCount?: number;
+    gallery: string[];
 }
