@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
 import styles from './MovieCard.styles';
 import { MovieCardProps } from './MovieCard.types';
+import { IconText } from '../../IconText/IconText';
+import { Star } from 'lucide-react-native';
 
 function getImageSource(image: string | ImageSourcePropType) {
     if (typeof image === 'string') {
@@ -29,7 +31,11 @@ export const MovieCard: React.FC<MovieCardProps> = ({ card }) => {
                     <Text style={styles.title}>{card.title}</Text>
                     <Text style={styles.info}>{card.year} • {card.duration}</Text>
                     <Text style={styles.genres} numberOfLines={1} ellipsizeMode="tail">{card.genres.join(', ')}</Text>
-                    <Text style={styles.rating}>⭐ {card.rating}</Text>
+                    <IconText
+                        icon={<Star size={16} color="#e3b341" fill="#e3b341" />}
+                        text={String(card.rating)}
+                        textStyle={styles.rating}
+                    />
                 </View>
             </TouchableOpacity>
         );

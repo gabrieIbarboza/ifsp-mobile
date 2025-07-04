@@ -1,6 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text } from "react-native";
+import { useNavigation } from '@react-navigation/native';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { RootStackParamList } from '../../types/Navigation';
 import { MovieCard } from "../../components/Card/MovieCard/MovieCard";
+import { MoviesList } from "../../components/MoviesList/MoviesList";
+import { mockMovies } from '../../services/mockMoviesRepository';
 import type {
     HighlightedMovieCardProps,
     DetailedMovieCardProps,
@@ -31,14 +36,113 @@ const defaultMovie: DefaultMovieCardProps = {
     onPress: () => {},
 };
 
+import { Tabs } from '../../components/Tabs/Tabs';
+
 const HomeScreen = () => {
+    const [activeTab, setActiveTab] = React.useState('recommendations');
+    const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
-        <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: 32 }}>
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginBottom: 16 }}>Exemplo de MovieCard</Text>
-            <MovieCard card={highlightedMovie} />
-            <MovieCard card={detailedMovie} />
-            <MovieCard card={defaultMovie} />
-        </ScrollView>
+        <View style={{ flex: 1, paddingVertical: 32 }}>
+            <View style={{ alignItems: 'center', marginBottom: 24 }}>
+                <Text style={{ fontSize: 20, fontWeight: 'bold', margin: 16, alignSelf: 'flex-start' }}>DESTAQUES 🔥</Text>
+                <MoviesList
+                    data={mockMovies.slice(0, 10)}
+                    scrollDirection="horizontal"
+                    itemSpacing={12}
+                    renderItem={(movie, index) => (
+                        <MovieCard
+                            card={{
+                                variant: 'highlighted',
+                                image: movie.image,
+                                number: index + 1,
+                                onPress: () => navigation.navigate('MovieDetails', { movieId: movie.id }),
+                            }}
+                        />
+                    )}
+                />
+            </View>
+            <Tabs
+                tabs={[
+                    {
+                        key: 'recommendations',
+                        label: 'Recomendações',
+                        content: (
+                            <>
+                            <Text style={{ fontSize: 16, color: '#666', marginHorizontal: 16 }}>
+                                Aqui estão algumas recomendações de filmes para você assistir!
+                            </Text>
+                            <MoviesList
+                                data={mockMovies.slice(10, 40)}
+                                columns={3}
+                                scrollDirection="vertical"
+                                itemSpacing={12}
+                                renderItem={(movie) => (
+                                    <MovieCard
+                                        card={{
+                                            variant: 'default',
+                                            image: movie.image,
+                                            onPress: () => navigation.navigate('MovieDetails', { movieId: movie.id }),
+                                        }}
+                                    />
+                                )}
+                            />
+                            </>
+                        ),
+                    },
+                    {
+                        key: 'toprated',
+                        label: 'Mais Votados',
+                        content: (
+                            <>
+                            <Text style={{ fontSize: 16, color: '#666', marginHorizontal: 16 }}>
+                                Estes são os filmes mais bem avaliados da nossa coleção!
+                            </Text>
+                            <MoviesList
+                                data={[...mockMovies].sort((a, b) => b.rating - a.rating).slice(0, 30)}
+                                columns={3}
+                                scrollDirection="vertical"
+                                itemSpacing={12}
+                                renderItem={(movie) => (
+                                    <MovieCard
+                                        card={{
+                                            variant: 'default',
+                                            image: movie.image,
+                                            onPress: () => navigation.navigate('MovieDetails', { movieId: movie.id }),
+                                        }}
+                                    />
+                                )}
+                            />
+                            </>
+                        ),
+                    },
+                    {
+                        key: 'popular',
+                        label: 'Popular',
+                        content: (
+                            <MoviesList
+                                data={mockMovies.slice(40, 70)}
+                                columns={3}
+                                scrollDirection="vertical"
+                                itemSpacing={12}
+                                renderItem={(movie) => (
+                                    <MovieCard
+                                        card={{
+                                            variant: 'default',
+                                            image: movie.image,
+                                            onPress: () => navigation.navigate('MovieDetails', { movieId: movie.id }),
+                                        }}
+                                    />
+                                )}
+                            />
+                        ),
+                    },
+                ]}
+                activeTab={activeTab}
+                onChangeTab={setActiveTab}
+                tabBarStyle={{ marginBottom: 8, marginHorizontal: 0 }}
+                contentContainerStyle={{ flex: 1, minHeight: 300 }}
+            />
+        </View>
     );
 };
 

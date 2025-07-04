@@ -8,13 +8,23 @@ import { Home, Search } from 'lucide-react-native';
 
 const Tab = createBottomTabNavigator();
 const HomeStack = createNativeStackNavigator();
+const SearchStack = createNativeStackNavigator();
 
 function HomeStackNavigator() {
     return (
         <HomeStack.Navigator screenOptions={{ headerShown: false }}>
-            <HomeStack.Screen name="HomeMain" component={HomeScreen} />
+            <HomeStack.Screen name="Main" component={HomeScreen} />
             <HomeStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
         </HomeStack.Navigator>
+    );
+}
+
+function SearchStackNavigator() {
+    return (
+        <SearchStack.Navigator screenOptions={{ headerShown: false }}>
+            <SearchStack.Screen name="Main" component={SearchScreen} />
+            <SearchStack.Screen name="MovieDetails" component={MovieDetailsScreen} />
+        </SearchStack.Navigator>
     );
 }
 
@@ -33,7 +43,7 @@ export default function AppNavigator() {
             })}
         >
             <Tab.Screen name="Home" component={HomeStackNavigator} options={{ headerShown: false }} />
-            <Tab.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+            <Tab.Screen name="Search" component={SearchStackNavigator} options={{ headerShown: false }} />
         </Tab.Navigator>
     </NavigationContainer>
   );
