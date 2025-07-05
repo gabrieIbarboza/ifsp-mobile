@@ -38,6 +38,7 @@ export const MoviesList: React.FC<MoviesListProps> = ({
       horizontal={scrollDirection === 'horizontal'}
       contentContainerStyle={[
         { gap: itemSpacing },
+        styles.container,
         style,
       ]}
       showsHorizontalScrollIndicator={false}
@@ -47,5 +48,7 @@ export const MoviesList: React.FC<MoviesListProps> = ({
 };
 
 const styles = StyleSheet.create({
-  // Add custom styles if needed
+  container: {
+    alignItems: 'center',
+  },
 });
