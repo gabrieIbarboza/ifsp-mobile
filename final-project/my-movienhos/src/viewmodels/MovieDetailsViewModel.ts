@@ -1,14 +1,29 @@
-import { useState, useCallback } from 'react';
-import { mockMoviesRepository } from '../services/mockMoviesRepository';
+import { useState, useCallback, useEffect } from 'react';
+import { MoviesAPI } from '../services/moviesApi';
 import type { Movie } from '../models/Movie';
 import type { Review } from '../models/Review';
 
 export function useMovieDetailsViewModel(movieId: string | undefined) {
   const [watched, setWatched] = useState(false);
 
-  // Busca o filme e reviews do mock
-  const movie = movieId ? mockMoviesRepository.getById(movieId) : undefined;
-  const baseReviews = movie ? mockMoviesRepository.getReviewsByMovieId(movie.id) : [];
+  // Busca o filme e reviews do mock (agora assíncrono)
+  const [movie, setMovie] = useState<Movie | undefined>(undefined);
+  const [baseReviews, setBaseReviews] = useState<Review[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Carrega dados ao montar ou quando movieId muda
+  useEffect(() => {
+    if (!movieId) return;
+    setLoading(true);
+    Promise.all([
+      MoviesAPI.getById(movieId),
+      MoviesAPI.getReviewsByMovieId(movieId)
+    ]).then(([movieData, reviewsData]) => {
+      setMovie(movieData);
+      setBaseReviews(reviewsData);
+      setLoading(false);
+    });
+  }, [movieId]);
 
   // Estado de likes/liked para cada review
   const [reviewLikes, setReviewLikes] = useState(() =>
@@ -54,5 +69,6 @@ export function useMovieDetailsViewModel(movieId: string | undefined) {
     watched,
     setWatched,
     toggleWatched,
+    loading,
   };
 }

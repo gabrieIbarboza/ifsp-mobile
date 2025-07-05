@@ -6,20 +6,32 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../types/Navigation';
 import { MovieCard } from "../../components/Card/MovieCard/MovieCard";
 import { MoviesList } from "../../components/MoviesList/MoviesList";
-import { mockMovies } from '../../services/mockMoviesRepository';
+import { useHomeViewModel } from '../../viewmodels/HomeViewModel';
 import { Tabs } from '../../components/Tabs/Tabs';
+import { Loader2 } from 'lucide-react-native';
 import styles from './HomeScreen.styles';
 
 const HomeScreen = () => {
     const [activeTab, setActiveTab] = React.useState('recommendations');
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    const { highlights, recommendations, topRated, popular, loading } = useHomeViewModel();
+    if (loading) {
+        return (
+            <SafeAreaView style={{ flex: 1, backgroundColor: '#23272f' }} edges={['top', 'bottom', 'left', 'right']}>
+                <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                    <Loader2 color="#fff" size={40} style={{ marginBottom: 12 }} />
+                    <Text style={{ color: '#fff', fontSize: 18 }}>Carregando...</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#23272f' }} edges={['top', 'bottom', 'left', 'right']}>
             <View style={styles.container}>
                 <View style={styles.highlightsSection}>
                     <Text style={styles.highlightsTitle}>DESTAQUES 🔥</Text>
                     <MoviesList
-                        data={mockMovies.slice(0, 10)}
+                        data={highlights}
                         scrollDirection="horizontal"
                         itemSpacing={0}
                         renderItem={(movie, index) => (
@@ -35,7 +47,7 @@ const HomeScreen = () => {
                     />
                 </View>
                 <Tabs
-                    tabs={[
+                    tabs={[ 
                         {
                             key: 'recommendations',
                             label: 'Recomendações',
@@ -45,7 +57,7 @@ const HomeScreen = () => {
                                     Aqui estão algumas recomendações de filmes especialmente para você!
                                 </Text>
                                 <MoviesList
-                                    data={mockMovies.slice(10, 40)}
+                                    data={recommendations}
                                     columns={3}
                                     scrollDirection="vertical"
                                     itemSpacing={0}
@@ -71,7 +83,7 @@ const HomeScreen = () => {
                                     Estes são os filmes mais bem avaliados da nossa coleção!
                                 </Text>
                                 <MoviesList
-                                    data={[...mockMovies].sort((a, b) => b.rating - a.rating).slice(0, 30)}
+                                    data={topRated}
                                     columns={3}
                                     scrollDirection="vertical"
                                     itemSpacing={0}
@@ -97,7 +109,7 @@ const HomeScreen = () => {
                                     Aqui estão os filmes mais assistidos recentemente!
                                 </Text>
                                 <MoviesList
-                                    data={mockMovies.slice(40, 70)}
+                                    data={popular}
                                     columns={3}
                                     scrollDirection="vertical"
                                     itemSpacing={0}

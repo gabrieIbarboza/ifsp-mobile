@@ -5,7 +5,7 @@ import styles from './MovieDetailsScreen.styles';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Header } from '../../components/Header/Header';
 import ActionButton from '../../components/ActionButton/ActionButton';
-import { Star, ChevronLeft, Calendar, Clock, Film } from 'lucide-react-native';
+import { Star, ChevronLeft, Calendar, Clock, Film, Loader2 } from 'lucide-react-native';
 import { IconText } from '../../components/IconText/IconText';
 import { Tabs } from '../../components/Tabs/Tabs';
 import { MovieCard } from '../../components/Card/MovieCard/MovieCard';
@@ -21,9 +21,16 @@ const MovieDetailsScreen = () => {
 
   const [activeTab, setActiveTab] = useState('about');
   const movieId = route.params?.movieId;
-  const { movie, reviews, watched, setWatched, toggleWatched } = useMovieDetailsViewModel(movieId);
+  const { movie, reviews, watched, setWatched, toggleWatched, loading } = useMovieDetailsViewModel(movieId);
 
-
+  if (loading) {
+    return (
+      <SafeAreaView style={[styles.container, { alignItems: 'center', justifyContent: 'center' }] }>
+        <Loader2 color="#fff" size={36} style={{ marginBottom: 12 }} />
+        <Text style={{ color: '#fff', fontSize: 18 }}>Carregando...</Text>
+      </SafeAreaView>
+    );
+  }
   if (!movie) {
     return (
       <SafeAreaView style={[styles.container, { alignItems: 'center', justifyContent: 'center' }] }>

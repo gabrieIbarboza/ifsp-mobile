@@ -85,13 +85,24 @@ export const mockReviews: { [movieId: string]: Review[] } = Object.fromEntries(
   mockMovies.map((movie) => [movie.id, generateMockReviews(movie.id)])
 );
 
-export const mockMoviesRepository = {
-  getAll: () => mockMovies,
-  getById: (id: string) => mockMovies.find((m) => m.id === id),
-  search: (query: string) =>
-    mockMovies.filter((m) =>
+export const MoviesAPI = {
+  getAll: async () => {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    return mockMovies;
+  },
+  getById: async (id: string) => {
+    await new Promise((resolve) => setTimeout(resolve, 400));
+    return mockMovies.find((m) => m.id === id);
+  },
+  search: async (query: string) => {
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    return mockMovies.filter((m) =>
       m.title.toLowerCase().includes(query.toLowerCase()) ||
       m.genres.some((g) => g.toLowerCase().includes(query.toLowerCase()))
-    ),
-  getReviewsByMovieId: (movieId: string) => mockReviews[movieId] || [],
+    );
+  },
+  getReviewsByMovieId: async (movieId: string) => {
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    return mockReviews[movieId] || [];
+  },
 };
