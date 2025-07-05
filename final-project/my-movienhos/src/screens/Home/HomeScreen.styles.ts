@@ -7,6 +7,7 @@ export default StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: '#23272f',
     paddingVertical: 32,
+    height: '100%',
   },
   highlightsSection: {
     alignItems: 'center',
