@@ -18,10 +18,10 @@ const SearchScreen = () => {
 
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={['top', 'left', 'right']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#23272f' }} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
         <View style={styles.container}>
-        <View style={{ width: '100%', alignItems: 'center', marginTop: 16, marginBottom: 16 }}>
+        <View style={styles.searchBarContainer}>
           <SearchBar
             value={query}
             onChangeText={onChangeText}
@@ -47,9 +47,9 @@ const SearchScreen = () => {
           />
         )}
         {results.length > 0 && (
-          <View style={{ width: '100%', alignItems: 'center' }}>
+          <View style={styles.resultsContainer}>
             {results.map((movie, idx) => (
-              <View key={movie.id} style={{ width: '94%' }}>
+              <View key={movie.id} style={styles.movieCardWrapper}>
                 <MovieCard
                   card={{
                     variant: 'detailed',

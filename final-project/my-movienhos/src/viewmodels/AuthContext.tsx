@@ -13,10 +13,8 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 const MOCK_USER = {
   id: '1001',
   name: 'Gabriel Barboza',
-  email: 'a',
-  password: 'a',
-  //email: 'gbarb@mymovienhos.com',
-  //password: '123456',
+  email: 'gbarb@mymovienhos.com',
+  password: '123456',
   avatarUrl: 'fakePath',
 };
 

@@ -21,7 +21,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   return (
     <View style={[styles.container, style]}>
-      <Ionicons name="search" size={20} color="#888" style={styles.icon} />
+      <Ionicons name="search" size={20} color="#555" style={styles.icon} />
       <TextInput
         style={[styles.input, inputStyle]}
         value={value}
@@ -34,7 +34,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       />
       {!!value && (
         <TouchableOpacity onPress={onClear} style={styles.clearButton} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-          <Ionicons name="close-circle" size={18} color="#888" />
+          <Ionicons name="close-circle" size={18} color="#555" />
         </TouchableOpacity>
       )}
     </View>
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#171717',
     borderRadius: 24,
     paddingHorizontal: 12,
     height: 40,
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: 16,
-    color: '#222',
+    color: '#fff',
     paddingVertical: 0,
   },
   clearButton: {

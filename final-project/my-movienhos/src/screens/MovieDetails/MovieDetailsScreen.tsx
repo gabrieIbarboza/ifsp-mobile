@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { View, Text, Image, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -28,14 +26,14 @@ const MovieDetailsScreen = () => {
 
   if (!movie) {
     return (
-      <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center' }}>
-        <Text style={{ color: '#23272f', fontSize: 18 }}>Filme não encontrado.</Text>
+      <SafeAreaView style={[styles.container, { alignItems: 'center', justifyContent: 'center' }] }>
+        <Text style={{ color: '#fff', fontSize: 18 }}>Filme não encontrado.</Text>
       </SafeAreaView>
     );
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }} edges={['top', 'bottom', 'left', 'right']}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
       <Header
         title="Detalhes"
         leftButton={
@@ -65,7 +63,7 @@ const MovieDetailsScreen = () => {
         <View style={{ width: '100%', height: 180, backgroundColor: '#23272f', justifyContent: 'center', alignItems: 'center' }}>
           <Image source={getImageSource(movie.gallery[0])} style={{ width: '100%', height: '100%', resizeMode: 'cover', position: 'absolute', opacity: 0.7 }} />
           <View style={{ position: 'absolute', left: 16, bottom: 16, flexDirection: 'row', alignItems: 'center' }}>
-            <Image source={getImageSource(movie.image)} style={{ width: 80, height: 110, borderRadius: 12, borderWidth: 2, borderColor: '#fff', backgroundColor: '#eee' }} />
+            <Image source={getImageSource(movie.image)} style={{ width: 80, height: 110, borderRadius: 12, borderWidth: 2, borderColor: '#fff', backgroundColor: '#23272f' }} />
             <View style={{ marginLeft: 16 }}>
               <Text style={{ color: '#fff', fontSize: 22, fontWeight: 'bold', marginBottom: 4 }}>{movie.title}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
@@ -89,9 +87,9 @@ const MovieDetailsScreen = () => {
                 key: 'about',
                 label: 'Sobre',
                 content: (
-                  <View style={{ padding: 16 }}>
-                    <Text style={{ color: '#23272f', fontSize: 15, marginBottom: 12 }}>{movie.description}</Text>
-                    {/* <Text style={{ color: '#888', fontSize: 14 }}>Diretor: <Text style={{ color: '#23272f', fontWeight: 'bold' }}>{movie.director}</Text></Text> */}
+                  <View style={styles.tabContent}>
+                    <Text style={styles.description}>{movie.description}</Text>
+                    {/* <Text style={styles.director}>Diretor: {movie.director}</Text> */}
                   </View>
                 ),
               },
@@ -99,7 +97,7 @@ const MovieDetailsScreen = () => {
                 key: 'reviews',
                 label: 'Avaliações',
                 content: (
-                  <View style={{ padding: 16, width: '100%' }}>
+                  <View style={[styles.tabContent, { width: '100%' }] }>
                     {reviews.length === 0 ? (
                       <Text style={{ color: '#888', fontSize: 15, textAlign: 'center' }}>Nenhuma avaliação ainda.</Text>
                     ) : (
@@ -122,7 +120,7 @@ const MovieDetailsScreen = () => {
                 key: 'rate',
                 label: 'Avalie',
                 content: (
-                  <View style={{ padding: 16, alignItems: 'center', justifyContent: 'center' }}>
+                  <View style={[styles.tabContent, { alignItems: 'center', justifyContent: 'center' }] }>
                     <Text style={{ color: '#888', fontSize: 15 }}>Funcionalidade de avaliação em breve.</Text>
                   </View>
                 ),
@@ -130,8 +128,8 @@ const MovieDetailsScreen = () => {
             ]}
             activeTab={activeTab}
             onChangeTab={setActiveTab}
-            tabBarStyle={{ marginHorizontal: 16, borderRadius: 12, overflow: 'hidden' }}
-            contentContainerStyle={{ backgroundColor: '#fff', borderRadius: 12, minHeight: 120 }}
+            tabBarStyle={styles.tabBar}
+            contentContainerStyle={{ backgroundColor: '#23272f', borderRadius: 12, minHeight: 120 }}
           />
         </View>
       </ScrollView>

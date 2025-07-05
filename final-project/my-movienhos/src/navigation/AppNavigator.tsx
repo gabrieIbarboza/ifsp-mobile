@@ -44,6 +44,10 @@ function MainTabs() {
         tabBarLabelStyle: { fontSize: 12 },
         tabBarActiveTintColor: '#007aff',
         tabBarInactiveTintColor: '#888',
+        tabBarStyle: {
+          backgroundColor: '#23272f',
+          borderColor: '#007aff',
+        },
       })}
     >
       <Tab.Screen name="Home" component={HomeStackNavigator} options={{ headerShown: false }} />

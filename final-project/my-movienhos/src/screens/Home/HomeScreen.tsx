@@ -38,20 +38,21 @@ const defaultMovie: DefaultMovieCardProps = {
 };
 
 import { Tabs } from '../../components/Tabs/Tabs';
+import styles from './HomeScreen.styles';
 
 
 const HomeScreen = () => {
     const [activeTab, setActiveTab] = React.useState('recommendations');
     const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
     return (
-        <SafeAreaView style={{ flex: 1 }} edges={['top', 'bottom', 'left', 'right']}>
-            <View style={{ flex: 1, paddingVertical: 32 }}>
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 16, alignSelf: 'flex-start' }}>DESTAQUES 🔥</Text>
+        <SafeAreaView style={{ flex: 1, backgroundColor: '#23272f' }} edges={['top', 'bottom', 'left', 'right']}>
+            <View style={styles.container}>
+                <View style={styles.highlightsSection}>
+                    <Text style={styles.highlightsTitle}>DESTAQUES 🔥</Text>
                     <MoviesList
                         data={mockMovies.slice(0, 10)}
                         scrollDirection="horizontal"
-                        itemSpacing={12}
+                        itemSpacing={0}
                         renderItem={(movie, index) => (
                             <MovieCard
                                 card={{
@@ -71,7 +72,7 @@ const HomeScreen = () => {
                             label: 'Recomendações',
                             content: (
                                 <>
-                                <Text style={{ fontSize: 16, color: '#666', marginHorizontal: 16 }}>
+                                <Text style={styles.sectionText}>
                                     Aqui estão algumas recomendações de filmes para você assistir!
                                 </Text>
                                 <MoviesList
@@ -97,7 +98,7 @@ const HomeScreen = () => {
                             label: 'Mais Votados',
                             content: (
                                 <>
-                                <Text style={{ fontSize: 16, color: '#666', marginHorizontal: 16 }}>
+                                <Text style={styles.sectionText}>
                                     Estes são os filmes mais bem avaliados da nossa coleção!
                                 </Text>
                                 <MoviesList
