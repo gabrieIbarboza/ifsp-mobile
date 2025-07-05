@@ -1,14 +1,14 @@
 {
   "expo": {
-    "name": "pokedex-app",
-    "slug": "pokedex-app",
+    "name": "my-movienhos-app",
+    "slug": "my-movienhos-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/mymovienhos-logo.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/splash-icon.png",
+      "image": "./assets/images/mymovienhos-logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/images/mymovienhos-logo.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true
